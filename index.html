@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Meta -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="A sincere and respectful apology website." />
+  <meta name="theme-color" content="#12172c" />
+  <title>A Sincere Apology</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400;500;600&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/styles.css" />
+
+  <!-- Scripts -->
+  <script src="js/script.js" defer></script>
+</head>
+<body>
+  <!-- Ambient layers -->
+  <div class="ambient-glow" aria-hidden="true"></div>
+  <div class="particles" id="particles" aria-hidden="true"></div>
+  <canvas id="confetti-canvas" aria-hidden="true"></canvas>
+
+  <main class="page">
+    <!-- Hero -->
+    <section class="hero reveal is-visible">
+      <h1 class="hero-title">A few honest words</h1>
+      <p class="hero-subtitle">
+        I wanted to say this clearly, respectfully, and with full sincerity.
+      </p>
+
+      <div class="typewriter" aria-live="polite" aria-atomic="true">
+        <p class="type-line" id="line-1"></p>
+        <p class="type-line" id="line-2"></p>
+        <p class="type-line" id="line-3"></p>
+        <p class="type-line" id="line-4"></p>
+      </div>
+    </section>
+
+    <!-- Interactive reveal -->
+    <section class="section reveal">
+      <button class="btn btn-primary" id="hearMeOutBtn" type="button">
+        Click if you’re willing to hear me out
+      </button>
+
+      <article class="card glass reveal hidden" id="apologyCard">
+        <h2 class="card-title">What I need you to know</h2>
+        <p class="card-text">
+          I value our friendship more than my time , ego and equal to my parents.<br />
+          You’ve always been supportive.<br />
+          I never meant to hurt you.<br />
+          I just hope we can move past this.
+        </p>
+      </article>
+    </section>
+
+    <!-- Friendship appreciation -->
+    <section class="section reveal">
+      <article class="card glass">
+        <h2 class="card-title">Why Our Friendship Matters To Me</h2>
+        <ul class="card-list">
+          <li>You motivate me</li>
+          <li>You’re honest with me</li>
+          <li>You’ve been there when it mattered</li>
+          <li>I don’t want one mistake to ruin that</li>
+        </ul>
+      </article>
+    </section>
+
+    <!-- Forgiveness -->
+    <section class="section reveal">
+      <article class="card glass">
+        <h2 class="card-title">No pressure — your feelings matter</h2>
+        <div class="button-row">
+          <button class="btn btn-primary" id="moveForwardBtn" type="button">you're forgiven</button>
+          <button class="btn btn-soft" id="needTimeBtn" type="button">I Need Time</button>
+        </div>
+        <p class="feedback" id="feedbackMessage" aria-live="polite"></p>
+      </article>
+    </section>
+
+    <footer class="footer">Made with sincerity.</footer>
+  </main>
+
+  <!-- Optional music:
+       Place file at assets/music.mp3
+       JS will play this only after first user interaction -->
+  <audio id="bgMusic" src="assets/music.mp3" preload="none" loop></audio>
+</body>
+</html>

@@ -1,0 +1,389 @@
+/* =====================================
+   1) Design Tokens & Base
+===================================== */
+:root {
+  --bg-1: #0b1020;
+  --bg-2: #191d38;
+  --bg-3: #2a1d45;
+  --bg-4: #402051;
+
+  --text: #edf0ff;
+  --muted: #c8cde7;
+
+  --glass-top: rgba(255, 255, 255, 0.12);
+  --glass-bottom: rgba(255, 255, 255, 0.06);
+  --glass-border: rgba(255, 255, 255, 0.18);
+
+  --btn-bg: rgba(122, 96, 184, 0.24);
+  --btn-hover: rgba(140, 108, 208, 0.34);
+
+  --shadow: 0 12px 34px rgba(7, 10, 24, 0.45);
+  --glow: 0 0 0.8rem rgba(185, 140, 255, 0.36), 0 0 1.8rem rgba(145, 123, 255, 0.24);
+
+  --radius-card: 18px;
+  --radius-pill: 999px;
+  --transition: 260ms ease;
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--text);
+  font-family: "Poppins", system-ui, sans-serif;
+  background: linear-gradient(130deg, var(--bg-1), var(--bg-2), var(--bg-3), var(--bg-4));
+  background-size: 240% 240%;
+  animation: gradientShift 18s ease infinite;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Entrance fade */
+body {
+  opacity: 0;
+  animation: pageFadeIn 700ms ease forwards, gradientShift 18s ease infinite;
+}
+
+@keyframes pageFadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes gradientShift {
+  0%,
+  100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* =====================================
+   2) Ambient Glow Blobs
+===================================== */
+.ambient-glow {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.ambient-glow::before,
+.ambient-glow::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.35;
+}
+
+.ambient-glow::before {
+  width: 46vw;
+  height: 46vw;
+  max-width: 360px;
+  max-height: 360px;
+  left: -14vw;
+  top: 12vh;
+  background: #8f6dff;
+  animation: blobFloatA 16s ease-in-out infinite alternate;
+}
+
+.ambient-glow::after {
+  width: 52vw;
+  height: 52vw;
+  max-width: 420px;
+  max-height: 420px;
+  right: -16vw;
+  bottom: -8vh;
+  background: #ff90c8;
+  animation: blobFloatB 20s ease-in-out infinite alternate;
+}
+
+@keyframes blobFloatA {
+  from { transform: translate(0, -8px) scale(1); }
+  to   { transform: translate(14px, 18px) scale(1.08); }
+}
+
+@keyframes blobFloatB {
+  from { transform: translate(0, 8px) scale(1); }
+  to   { transform: translate(-12px, -16px) scale(1.06); }
+}
+
+/* =====================================
+   3) Floating Particles
+===================================== */
+.particles {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  left: var(--left);
+  bottom: -10vh;
+  width: var(--size);
+  height: var(--size);
+  border-radius: 50%;
+  opacity: var(--opacity);
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.65), rgba(255, 255, 255, 0.1));
+  animation: particleRise var(--duration) linear infinite;
+  animation-delay: var(--delay);
+}
+
+@keyframes particleRise {
+  from { transform: translateY(0) translateX(0) scale(1); }
+  to   { transform: translateY(-115vh) translateX(var(--drift-x)) scale(1.24); }
+}
+
+/* =====================================
+   4) Layout & Typo
+===================================== */
+.page {
+  width: min(100%, 780px);
+  margin-inline: auto;
+  padding: 20px 16px 36px;
+  position: relative;
+  z-index: 1;
+}
+
+.hero {
+  min-height: 72vh;
+  display: grid;
+  align-content: center;
+  gap: 18px;
+  padding-top: 8vh;
+  padding-bottom: 4vh;
+}
+
+.hero-title {
+  margin: 0;
+  font-family: "Playfair Display", serif;
+  font-weight: 700;
+  font-size: clamp(1.56rem, 5.4vw, 2.5rem);
+  line-height: 1.2;
+  letter-spacing: 0.2px;
+  text-wrap: balance;
+}
+
+.hero-subtitle {
+  margin: 0;
+  color: var(--muted);
+  max-width: 40ch;
+  line-height: 1.75;
+  font-size: clamp(0.95rem, 3.3vw, 1.05rem);
+}
+
+.typewriter {
+  margin-top: 8px;
+  display: grid;
+  gap: 8px;
+  min-height: 9.5rem;
+}
+
+.type-line {
+  margin: 0;
+  min-height: 1.6em;
+  font-size: clamp(1.05rem, 4vw, 1.32rem);
+  color: #f8f7ff;
+  letter-spacing: 0.2px;
+  font-weight: 500;
+  white-space: pre-wrap;
+}
+
+.cursor {
+  display: inline-block;
+  width: 0.6ch;
+  margin-left: 2px;
+  color: #eadfff;
+  animation: cursorBlink 1s step-end infinite;
+}
+
+@keyframes cursorBlink {
+  50% { opacity: 0; }
+}
+
+/* Han highlight glow */
+.han-highlight {
+  color: #f2d8ff;
+  text-shadow: 0 0 0.45rem rgba(242, 172, 255, 0.55);
+}
+
+/* =====================================
+   5) Cards
+===================================== */
+.section {
+  margin-top: 20px;
+  margin-bottom: 14px;
+}
+
+.card {
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow);
+  padding: 18px 16px;
+}
+
+.glass {
+  background: linear-gradient(180deg, var(--glass-top), var(--glass-bottom));
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+#apologyCard {
+  margin-top: 14px;
+}
+
+.card-title {
+  margin: 0 0 10px;
+  font-family: "Playfair Display", serif;
+  font-size: clamp(1.15rem, 4vw, 1.45rem);
+  font-weight: 600;
+  color: #faf8ff;
+}
+
+.card-text {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.85;
+  font-size: 0.98rem;
+}
+
+.card-list {
+  margin: 10px 0 0;
+  padding-left: 1.15rem;
+  color: #e7e9fb;
+  line-height: 1.9;
+  font-size: 0.97rem;
+}
+
+/* =====================================
+   6) Buttons
+===================================== */
+.button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.btn {
+  appearance: none;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(220, 205, 255, 0.38);
+  padding: 0.8rem 1.1rem;
+  color: #f9f7ff;
+  font: inherit;
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform var(--transition), box-shadow var(--transition), background var(--transition), border-color var(--transition);
+  background: var(--btn-bg);
+}
+
+.btn:hover,
+.btn:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: var(--glow);
+  background: var(--btn-hover);
+  border-color: rgba(236, 225, 255, 0.55);
+  outline: none;
+}
+
+.btn:disabled {
+  opacity: 0.82;
+  cursor: default;
+  transform: none;
+  box-shadow: none;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, rgba(149, 109, 255, 0.45), rgba(222, 132, 196, 0.35));
+  border-color: rgba(235, 220, 255, 0.55);
+}
+
+.btn-soft {
+  background: rgba(255, 255, 255, 0.09);
+}
+
+.feedback {
+  margin: 14px 0 0;
+  color: #f2e8ff;
+  min-height: 1.4rem;
+  line-height: 1.7;
+  font-size: 0.98rem;
+}
+
+/* =====================================
+   7) Reveal Animations
+===================================== */
+.reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 600ms ease, transform 600ms ease;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hidden {
+  display: none;
+}
+
+/* =====================================
+   8) Footer & Confetti Canvas
+===================================== */
+.footer {
+  margin-top: 26px;
+  padding-bottom: 10px;
+  text-align: center;
+  font-size: 0.82rem;
+  color: #c8cae5;
+  opacity: 0.86;
+}
+
+#confetti-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* =====================================
+   9) Responsive Tweaks
+===================================== */
+@media (min-width: 700px) {
+  .page {
+    padding: 28px 22px 42px;
+  }
+
+  .card {
+    padding: 22px;
+  }
+
+  .button-row {
+    gap: 14px;
+  }
+}
+
+/* =====================================
+   10) Accessibility
+===================================== */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
